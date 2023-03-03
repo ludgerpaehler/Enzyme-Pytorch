@@ -84,7 +84,7 @@ std::function<void(void*, void*, size_t, void*)> diffecompile(std::string filena
     tmpnam (buffer2);
     printf("made buffer 2\n");
 
-    sprintf(data, "clang++ -fPIC -shared %s.ll -o %s.so", buffer, buffer2);
+    sprintf(data, "/usr/bin/clang++-12 -fPIC -shared %s.ll -o %s.so", buffer, buffer2);
     printf("running library - %s\n", data);
     res = system(data);
     printf("ran library - %s\n", data);
