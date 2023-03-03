@@ -26,7 +26,7 @@ std::function<void(void*, size_t, void*)> compile(std::string filename, std::str
     tmpnam (buffer);
     int res;
     char data[1024];
-    sprintf(data, "clang++ %s -O3 -fno-exceptions -fno-vectorize -fno-slp-vectorize -ffast-math -fno-unroll-loops -Xclang -new-struct-path-tbaa -S -emit-llvm -o %s.ll", filename.c_str(), buffer);
+    sprintf(data, "/usr/bin/clang++-12 %s -O3 -fno-exceptions -fno-vectorize -fno-slp-vectorize -ffast-math -fno-unroll-loops -Xclang -new-struct-path-tbaa -S -emit-llvm -o %s.ll", filename.c_str(), buffer);
     printf("running compile - %s\n", data);
     res = system(data);
     printf("ran compile - %s\n", data);
@@ -39,7 +39,7 @@ std::function<void(void*, size_t, void*)> compile(std::string filename, std::str
     tmpnam (buffer2);
     printf("made buffer 2\n");
 
-    sprintf(data, "clang++ -fPIC -shared %s.ll -o %s.so", buffer, buffer2);
+    sprintf(data, "/usr/bin/clang++-12 -fPIC -shared %s.ll -o %s.so", buffer, buffer2);
     printf("running library - %s\n", data);
     res = system(data);
     printf("ran library - %s\n", data);
