@@ -64,14 +64,13 @@ std::function<void(void*, void*, size_t, void*)> diffecompile(std::string filena
     char buffer [L_tmpnam];
     tmpnam (buffer);
     char data[1024];
-    sprintf(data, "clang++ -O3 %s -DTF_ENZYME=1 -fno-exceptions -fno-vectorize -fno-slp-vectorize -ffast-math -fno-unroll-loops -Xclang -new-struct-path-tbaa -S -emit-llvm -o %s.ll", filename.c_str(), buffer);
+    sprintf(data, "/usr/bin/clang++-12 -O3 %s -DTF_ENZYME=1 -fno-exceptions -fno-vectorize -fno-slp-vectorize -ffast-math -fno-unroll-loops -Xclang -new-struct-path-tbaa -S -emit-llvm -o %s.ll", filename.c_str(), buffer);
     printf("running compile - %s\n", data);
     res = system(data);
     printf("ran compile - %s\n", data);
     assert(res == 0);
 
-    sprintf(data, "~/git/Enzyme/build/bin/opt %s.ll -load=%s -S -enzyme -mem2reg -instcombine -simplifycfg -adce -loop-deletion -simplifycfg -o %s.ll", buffer, "/home/wmoses/git/Enzyme/enzyme/build-dbg/Enzyme/LLVMEnzyme-7.so", buffer);
-    //sprintf(data, "~/git/Enzyme/build/bin/opt %s.ll -load=%s -S -enzyme -O3 -o %s.ll", buffer, "/home/wmoses/git/Enzyme/enzyme/build-dbg/Enzyme/LLVMEnzyme-7.so", buffer);
+    sprintf(data, "/usr/bin/opt-12 %s.ll -load=%s -S -enzyme -mem2reg -instcombine -simplifycfg -adce -loop-deletion -simplifycfg -o %s.ll", buffer, "/content/Enzyme-0.0.49/build/Enzyme/LLVMEnzyme-12.so", buffer);
     printf("running compile - %s\n", data);
     res = system(data);
     printf("ran compile - %s\n", data);
